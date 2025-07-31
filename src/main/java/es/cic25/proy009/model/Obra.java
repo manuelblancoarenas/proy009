@@ -1,10 +1,13 @@
 package es.cic25.proy009.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Obra {
@@ -20,6 +23,11 @@ public class Obra {
     private int fecha;
     @Column(name = "precio")
     private long precio;
+
+    @JsonIgnore
+    @ManyToOne()
+    private Artista artista;
+    
     public Long getId() {
         return id;
     }
@@ -50,6 +58,13 @@ public class Obra {
     public void setPrecio(long precio) {
         this.precio = precio;
     }
+    public Artista getArtista() {
+        return artista;
+    }
+    public void setArtista(Artista artista) {
+        this.artista = artista;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -57,6 +72,7 @@ public class Obra {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -73,6 +89,10 @@ public class Obra {
             return false;
         return true;
     }
-
-    // TODO toString
+    
+    @Override
+    public String toString() {
+        return "Obra [id=" + id + ", titulo=" + titulo + ", estiloPictorico=" + estiloPictorico + ", fecha=" + fecha
+                + ", precio=" + precio + ", artista=" + artista + "]";
+    }
 }
